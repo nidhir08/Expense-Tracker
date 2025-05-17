@@ -14,8 +14,8 @@ const Header = () => {
     { name: 'Accounts', href: '/accounts' },
   ]
   return (
-    <div className='flex flex-row bg-white  text-black gap-90  '>
-        <div className="relative w-60 h-15">
+    <div className='flex flex-row bg-white  text-black gap-70 border-b border-gray-300  '>
+        <div className="relative w-80 h-20 ">
   <Image
     src="/images/Trackwise.jpg"
     alt="logo"
@@ -24,14 +24,14 @@ const Header = () => {
   />
 </div>
 
-        <div className='flex flex-row gap-4 pt-5'>
+        <div className='flex flex-row gap-4 pt-3'>
         {menuItems.map((item) => (
           <Link
         key={item.name}
         href={item.href}
-        className={`px-4 py-2 rounded cursor-pointer font-medium ${
+        className={`px-4 py-3 rounded cursor-pointer font-medium mb-4 ${
           pathname === item.href
-            ? 'bg-blue-500 text-white'
+            ? 'bg-blue-500 text-white '
             : 'bg-gray-100 text-black'
         }`}
       >
