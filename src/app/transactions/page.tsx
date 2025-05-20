@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Header from '../layout/header'
 import supabase from '../../../lib/supabaseClient'
 import TimeRange from '../components/timerange'
+import { useSession } from 'next-auth/react'
 
 
 const Transactions = () => {
@@ -34,6 +35,7 @@ const Transactions = () => {
   
       fetchTransactions()
     }, [])
+
   return (
     <div >
    <Header/>

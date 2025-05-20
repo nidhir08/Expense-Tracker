@@ -2,18 +2,32 @@
 import Image from "next/image";
 import Header from "@/app/layout/header"
 import TimeRange from "./components/timerange";
-import { CircleFadingPlus } from "lucide-react";
+import { CircleFadingPlus, Eye, Pencil } from "lucide-react";
 import supabase from '../../lib/supabaseClient'
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSession, signIn, signOut } from 'next-auth/react'
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 
 export default function Home() {
+   const { data: session } = useSession()
+   const userEmail = session?.user?.email;
   const [isOpen, setIsOpen] = useState(false)
   const[isIncomeOpen, setisIncomeOpen]= useState(false)
   const [form, setForm] = useState({
     name: '',
     amount_spent: '',
     description: '',
-    transaction_at: new Date().toISOString().slice(0, 10), // default to today
+    transaction_at: new Date().toISOString().slice(0, 10), 
+    userEmail:'',
+    payment_method:''
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -27,7 +41,12 @@ export default function Home() {
     setIncomeForm({ ...IncomeForm, [e.target.name]: e.target.value })
   }
 
+  //add expense
   const handleSubmit = async () => {
+    if (!session?.user?.email) {
+      alert("You must be logged in to submit a transaction.");
+      return;
+    }
     const { error } = await supabase
       .from('Transactions')
       .insert([{
@@ -35,25 +54,32 @@ export default function Home() {
         amount_spent: parseFloat(form.amount_spent),  // ✅ correct column name
         description: form.description,
         transaction_at: form.transaction_at,
+        userEmail: session.user.email,
+        payment_method: form.payment_method,
       }])
 
     if (error) {
       console.error('Insert failed:', error)
 
-      alert('Failed to add income.')
+      alert('Failed to add expense.')
     } else {
-      alert('Income added!')
+      alert('Expense added!')
       setIsOpen(false)
-      setForm({ name: '', amount_spent: '', description: '', transaction_at: new Date().toISOString().slice(0, 10) })
+      setForm({ name: '', amount_spent: '', description: '', transaction_at: new Date().toISOString().slice(0, 10) , userEmail:'', payment_method:''})
     }
   }
 
   const addIncome=async()=>{
+    if (!session?.user?.email) {
+      alert("You must be logged in to submit a transaction.");
+      return;
+    }
     const { error } = await supabase
     .from('Income')
     .insert([{
       Income:IncomeForm.Income,
       created_at: IncomeForm.created_at,
+      userEmail: session.user.email,
     }])
 
   if (error) {
@@ -66,12 +92,70 @@ export default function Home() {
     setIncomeForm({ Income: '', created_at: new Date().toISOString().slice(0, 10) })
   }
   }
+
+  //fetch income
+  interface Income {
+    id: string;
+    Income: number;
+    created_at: string;
+  }
+  const [income, setIncome] = useState<Income[]>([])
+  useEffect(() => {
+    const fetchIncome = async () => {
+      if (!session?.user?.email) return; 
+      const { data, error } = await supabase
+        .from('Income')
+        .select('*')
+        .eq('userEmail', session.user.email);
+      if (error) {
+        console.error('Error fetching income:', error)
+      } else {
+        console.log('Fetched income:', data);
+        setIncome(data)
+      }
+    }
+
+    fetchIncome()
+  }, [session])
+
+  //fetch expense
+  interface Transaction {
+    id: string;
+    name: string;
+    amount_spent: number;
+    description: string;
+    payment_method:string,
+    transaction_at: string;
+  }
+  const [transactions, setTransactions] = useState<Transaction[]>([])
+
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      if (!session?.user?.email) return; 
+      const { data, error } = await supabase
+        .from('Transactions')
+        .select('*')
+        .order('transaction_at', { ascending: false })
+        .eq('userEmail', session.user.email);
+
+      if (error) {
+        console.error('Error fetching transactions:', error)
+      } else {
+        console.log('Fetched transactions:', data);
+        setTransactions(data)
+      }
+    }
+
+    fetchTransactions()
+  }, [session])
   return (
    <>
    <Header/>
    <div className="p-4">
-   <div className='flex flex-row mt-4 gap-180 '>
-    <h1 className='font-bold text-2xl text-black mt-4'>Hello,{}!</h1>
+   <div className='flex flex-row mt-4 gap-150 '>
+   {!session && <h1 className='font-bold text-2xl text-black mt-4'>Hello!</h1>}
+    {session && <h1 className='font-bold text-2xl text-black mt-4'>Hello, {session.user?.name}!</h1>}
+    
    <TimeRange/>
    </div>
    <div className="flex flex-row w-full mt-3 gap-10">
@@ -89,19 +173,41 @@ export default function Home() {
     <div className="bg-[#FFFFFF] w-[259px] h-[124px] border-[#ECEFF2] border-1 rounded-xl p-4">
       <div className="flex flex-col">
       <span className="text-[#516778]">Balance</span>
-      <span className="text-[#155EEF] text-3xl">$5,502.45</span>
+      <span className="text-[#155EEF] text-3xl">
+       
+        ₹{session?
+        income.reduce((sum, item) => sum + item.Income, 0) - transactions.reduce((sum, transaction) => sum + transaction.amount_spent, 0)
+      : 0}
+      
+      </span>
       </div>
     </div>
     <div className="bg-[#FFFFFF] w-[259px] h-[124px] border-[#ECEFF2] border-1 rounded-xl p-4">
       <div className="flex flex-col">
       <span className="text-[#516778]">Income</span>
-      <span className="text-black text-3xl">$5,502.45</span>
+      <span className="text-black text-3xl">
+        ₹{session?
+      income.length > 0 ? income[0].Income :0
+    :0}</span>
       </div>
     </div>
     <div className="bg-[#FFFFFF] w-[259px] h-[124px] border-[#ECEFF2] border-1 rounded-xl p-4">
       <div className="flex flex-col">
       <span className="text-[#516778]">Expenses</span>
-      <span className="text-black text-3xl">$5,502.45</span>
+      <span className="text-black text-3xl">
+      {transactions.length > 0 ? (
+  <>
+    <div className="font-large">
+    ₹
+      {session?
+      transactions.reduce((sum, transaction) => sum + transaction.amount_spent, 0)
+    :"No transactions"}
+    </div>
+  </>
+) : (
+  "No transactions"
+)}
+      </span>
       </div>
     </div>
     </div>
@@ -209,6 +315,14 @@ export default function Home() {
               className="w-full border p-2 mb-2 rounded"
             />
 
+<textarea
+              name="payment_method"
+              placeholder="Payment Method"
+              value={form.payment_method}
+              onChange={handleChange}
+              className="w-full border p-2 mb-2 rounded"
+            />
+
             <input
               type="date"
               name="transaction_at"
@@ -241,6 +355,46 @@ export default function Home() {
       </div>
     </div>
     </div>
+
+    <Table className="bg-white  rounded-lg">
+  <TableCaption>A list of your recent invoices.</TableCaption>
+  <TableHeader >
+    <TableRow >
+    <h1 className="mx-4 my-2 font-bold text-black text-lg">Last Transactions</h1>
+    <p className="mx-4 my-4 font-light text-[#516778]">Check your last transactions</p>
+    </TableRow>
+    </TableHeader>
+  <TableHeader>
+    <TableRow>
+      <TableHead className="text-left">Description</TableHead>
+      <TableHead>Payment Method</TableHead>
+      <TableHead>Date</TableHead>
+      <TableHead >Amount</TableHead>
+      <TableHead className="text-right"></TableHead>
+    </TableRow>
+    </TableHeader>
+  <TableBody>
+    {transactions.length > 0 ? (
+      transactions.map((transaction) => (
+        <TableRow key={transaction.id}>
+          <TableCell className="font-medium">{transaction.description}</TableCell>
+          <TableCell>{transaction.payment_method }</TableCell>
+          <TableCell>{transaction.transaction_at}</TableCell>
+          <TableCell className="text-[#17B26A]">₹{transaction.amount_spent}</TableCell>
+          <TableCell><Eye /></TableCell>
+          <TableCell><Pencil /></TableCell>
+        </TableRow>
+      ))
+    ) : (
+      <TableRow>
+        <TableCell colSpan={4} className="text-center">
+          No transactions found.
+        </TableCell>
+      </TableRow>
+    )}
+  </TableBody>
+</Table>
+
     </div>
    </div>
    </div>

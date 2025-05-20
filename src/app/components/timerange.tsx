@@ -14,8 +14,8 @@ const TimeRange = () => {
                   onClick={() => setSelected(label)}
                   className={`p-2 whitespace-nowrap rounded cursor-pointer font-medium ${
                     selected === label
-                      ? 'bg-blue-500 text-white'
-                      : 'bg-gray-100 text-black'
+                      ? 'bg-blue-500 text-white '
+                      : 'bg-white text-black'
                   }`}
                 >
                   {label}
