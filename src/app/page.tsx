@@ -3,7 +3,7 @@ import Image from "next/image";
 import Header from "@/app/layout/header"
 import TimeRange from "./components/timerange";
 import { CircleFadingPlus } from "lucide-react";
-import supabase from '@/lib/supabaseClient'
+import supabase from '../../lib/supabaseClient'
 import { useState } from "react";
 
 export default function Home() {
@@ -75,7 +75,7 @@ export default function Home() {
    <TimeRange/>
    </div>
    <div className="flex flex-row w-full mt-3 gap-10">
-    <div className="w-[330px] h-[395px] bg-[#FFFFFF] rounded-xl">
+    <div className="w-[330px] h-[395px] bg-[#FFFFFF] border-1 rounded-xl">
       <div className="flex flex-col p-2">
         <span className="text-[#516778] font-medium text-xl pb-2">My Card</span>
         <span className="text-[#8C89B4] font-light">Card Balance</span>

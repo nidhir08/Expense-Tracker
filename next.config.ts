@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   /* config options here */
 
     images: {
-      domains: ['plus.unsplash.com'],
+      domains: ['avatars.githubusercontent.com', 'lh3.googleusercontent.com'],
     },
 
 };

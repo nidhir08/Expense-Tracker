@@ -7,12 +7,12 @@ const TimeRange = () => {
   return (
 
     <div>
-          <div className="border rounded-md p-2 inline-flex items-center gap-2 bg-white shadow-sm">
+          <div className="border rounded-md  inline-flex items-center gap-2 bg-white shadow-sm">
             {timeRanges.map((label, index) => (
               <React.Fragment key={label}>
                 <button
                   onClick={() => setSelected(label)}
-                  className={`px-4 py-2 rounded cursor-pointer font-medium ${
+                  className={`p-2 whitespace-nowrap rounded cursor-pointer font-medium ${
                     selected === label
                       ? 'bg-blue-500 text-white'
                       : 'bg-gray-100 text-black'
