@@ -21,9 +21,11 @@ const Header = () => {
   ]
 
   return (
-    <div className='flex flex-row bg-white text-black items-center justify-between px-6 py-4 border-b border-gray-300'>
+    <>
+    <div className='w-full min-w-screen bg-white text-black items-center px-6 py-4 border-b border-gray-300 flex-shrink-0'>
+      <div className="flex items-center justify-between ">
       {/* Logo */}
-      <div className="relative w-60 h-14">
+      <div className="relative w-60 h-14 sm:w-48 sm:h-14 md:w-60 md:h-14 flex-shrink-0">
         <Image
           src="/images/Trackwise.jpg"
           alt="logo"
@@ -95,7 +97,9 @@ const Header = () => {
           </button>
         )}
       </div>
+      </div>
     </div>
+    </>
   )
 }
 
