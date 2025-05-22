@@ -109,7 +109,7 @@ const colors = ['#E0533D', '#E78C9D', '#377CC8', '#EED868', '#17B26A', '#9E77ED'
                     if(totalError) {
                         console.error('Error fetching totals for category:', category.savings_for, totalError);
                         return {
-                            id: `${category.savings_for}_${session?.user?.email || 'unknown'}`, // Provide a default ID
+                            id: `${category.savings_for}_${session?.user?.email || 'unknown'}`, // Provide a default id
                             userEmail: session?.user?.email || 'unknown', // Provide a default userEmail
                             ...category,
                             saved_so_far: 0,
@@ -125,7 +125,7 @@ const colors = ['#E0533D', '#E78C9D', '#377CC8', '#EED868', '#17B26A', '#9E77ED'
                         amount_to_be_saved: category.amount_to_be_saved,
                         savings_for: category.savings_for,
                         time: category.time,
-                        userEmail: session?.user?.email,
+                        userEmail: session?.user?.email || 'unknown',
                         saved_so_far: totalSaved,
                         total_saved: totalSaved
                     };
@@ -133,7 +133,7 @@ const colors = ['#E0533D', '#E78C9D', '#377CC8', '#EED868', '#17B26A', '#9E77ED'
             );
             
             console.log('Fetched savings with totals:', savingsWithTotals);
-            setSavings(savingsWithTotals);
+            setSavings(savingsWithTotals as Savings[]);
             
         } catch (error) {
             console.error('Error in fetchSavings:', error);
