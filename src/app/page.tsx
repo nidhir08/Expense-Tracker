@@ -23,6 +23,7 @@ import {
   Tooltip,
   Legend
 } from 'chart.js'
+import { randomInt } from "crypto";
 
 // Register chart elements
 ChartJS.register(ArcElement, Tooltip, Legend)
@@ -222,9 +223,24 @@ setChartColors(colors.slice(0, labels.length))
 
     <div className="w-[330px] h-[395px] bg-[#FFFFFF] border-1 rounded-xl">
       <div className="flex flex-col p-2">
-        <span className="text-[#516778] font-medium text-xl pb-2">My Card</span>
-        <span className="text-[#8C89B4] font-light">Card Balance</span>
-        <span className="text-[#516778] font-medium">$15,595.015</span>
+        <span className="text-[#516778] font-medium text-2xl pb-2">My Card</span>
+        <div className="flex flex-col gap-2 text-[#ffffff] bg-[#0B0F85] w-[300px] h-[200px] border-1 rounded-xl p-4 mt-30">
+        <span className=" text-2xl font-bold">Card Balance</span>
+        <div className="flex flex-row">
+        <p>
+        {session && <h1 className='font-bold text-xl  mt-4 sm:w-auto"'>{session.user?.name}</h1>}
+        {!session && <h1 className='font-bold text-xl mt-4 sm:w-auto"'></h1>}
+     
+        </p>
+        </div>
+        <span className=" text-lg">Card No. 
+        {Math.floor(1000000000 + Math.random() * 9000000000)}
+        </span>
+        <span className="text-[#ffffff] font-medium"> Total Money: ₹{session?
+      income.length > 0 ? income[0].Income :0
+    :0}</span>
+        </div>
+       
       </div>
     </div>
 
