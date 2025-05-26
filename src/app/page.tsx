@@ -525,8 +525,7 @@ setChartColors(colors.slice(0, labels.length))
   <TableCaption>A list of your recent transactions.</TableCaption>
   <TableHeader >
     <TableRow >
-    <h1 className="mx-4 my-2 font-bold text-black text-lg">Last Transactions</h1>
-    <p className="mx-4 my-4 font-light text-[#516778]">Check your last transactions</p>
+    <th className="mx-4 my-2 font-bold text-black text-lg">Last Transactions</th>
     </TableRow>
     </TableHeader>
   <TableHeader>

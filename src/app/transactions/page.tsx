@@ -67,7 +67,6 @@ const Transactions = () => {
   <TableHeader >
     <TableRow >
     <th className="mx-4 my-2 font-bold text-black text-lg">Last Transactions</th>
-    <th className="mx-4 my-4 font-light text-[#516778]">Check your last transactions</th>
     </TableRow>
     </TableHeader>
   <TableHeader>
