@@ -221,27 +221,46 @@ setChartColors(colors.slice(0, labels.length))
    </div>
    <div className="flex flex-row w-full mt-3 gap-10">
 
-    <div className="w-[330px] h-[395px] bg-[#FFFFFF] border-1 rounded-xl">
-      <div className="flex flex-col p-2">
-        <span className="text-[#516778] font-medium text-2xl pb-2">My Card</span>
-        <div className="flex flex-col gap-2 text-[#ffffff] bg-[#0B0F85] w-[300px] h-[200px] border-1 rounded-xl p-4 mt-30">
-        <span className=" text-2xl font-bold">Card Balance</span>
-        <div className="flex flex-row">
-        <p>
-        {session && <h1 className='font-bold text-xl  mt-4 sm:w-auto"'>{session.user?.name}</h1>}
-        {!session && <h1 className='font-bold text-xl mt-4 sm:w-auto"'></h1>}
-     
-        </p>
-        </div>
-        <span className=" text-lg">Card No. 
-        {Math.floor(1000000000 + Math.random() * 9000000000)}
-        </span>
-        <span className="text-[#ffffff] font-medium"> Total Money: ₹{session?
-      income.length > 0 ? income[0].Income :0
-    :0}</span>
-        </div>
-       
-      </div>
+    <div className="w-[350px] h-[280px] bg-[#FFFFFF] border-1 rounded-xl">
+      <div className="flex flex-col p-4">
+  <span className="text-[#000000] font-semibold text-2xl mb-4">My Card</span>
+
+  <div className="relative flex flex-col justify-between text-white bg-gradient-to-br from-indigo-800 to-indigo-600 w-[320px] h-[200px] rounded-2xl p-5 shadow-lg transition-transform hover:scale-105">
+    
+    {/* Card Header */}
+    <div className="flex justify-between items-center">
+      <span className="text-xl font-semibold">Card Balance</span>
+      <div className="w-10 h-7 bg-yellow-300 rounded-sm" /> {/* Simulated chip */}
+    </div>
+
+    {/* Cardholder Info */}
+    <div>
+      {session && (
+        <p className="text-sm text-gray-200"></p>
+      )}
+      <h1 className="text-lg font-bold">
+        {session?.user?.name || 'Guest'}
+      </h1>
+    </div>
+
+    {/* Card Number */}
+    <span className="tracking-widest text-sm mt-2">
+      Card No.{' '}
+      {String(Math.floor(100000000000 + Math.random() * 900000000000))
+        .match(/.{1,4}/g)
+        ?.join(' ')}
+    </span>
+
+    {/* Balance */}
+    <div className="mt-2">
+      <span className="text-sm text-gray-300">Total Money:</span>
+      <h2 className="text-xl font-semibold">
+        ₹{session ? (income.length > 0 ? income[0].Income : 0) : 0}
+      </h2>
+    </div>
+  </div>
+</div>
+
     </div>
 
 <div className="flex flex-col gap-y-10">
@@ -512,7 +531,8 @@ setChartColors(colors.slice(0, labels.length))
     </TableHeader>
   <TableHeader>
     <TableRow>
-      <TableHead className="text-left">Description</TableHead>
+      <TableHead className="text-left">Name</TableHead>
+      <TableHead>Description</TableHead>
       <TableHead>Payment Method</TableHead>
       <TableHead>Date</TableHead>
       <TableHead >Amount</TableHead>
@@ -523,7 +543,8 @@ setChartColors(colors.slice(0, labels.length))
     {transactions.length > 0 ? (
       transactions.map((transaction) => (
         <TableRow key={transaction.id}>
-          <TableCell className="font-medium">{transaction.description}</TableCell>
+          <TableCell className="font-medium">{transaction.name}</TableCell>
+          <TableCell >{transaction.description}</TableCell>
           <TableCell>{transaction.payment_method }</TableCell>
           <TableCell>{transaction.transaction_at}</TableCell>
           <TableCell className={transaction.amount_spent < 0 ? "text-[#F04438]" : "text-[#17B26A]"}>

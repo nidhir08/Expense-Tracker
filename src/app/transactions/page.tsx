@@ -72,7 +72,8 @@ const Transactions = () => {
     </TableHeader>
   <TableHeader>
     <TableRow>
-      <TableHead className="text-left">Description</TableHead>
+      <TableHead className="text-left">Name</TableHead>
+      <TableHead>Description</TableHead>
       <TableHead>Payment Method</TableHead>
       <TableHead>Date</TableHead>
       <TableHead >Amount</TableHead>
@@ -83,7 +84,8 @@ const Transactions = () => {
     {transactions.length > 0 ? (
       transactions.map((transaction) => (
         <TableRow key={transaction.id}>
-          <TableCell className="font-medium">{transaction.description}</TableCell>
+          <TableCell className="font-medium">{transaction.name}</TableCell>
+          <TableCell >{transaction.description}</TableCell>
           <TableCell>{transaction.payment_method }</TableCell>
           <TableCell>{transaction.transaction_at}</TableCell>
           <TableCell className={transaction.amount_spent < 0 ? "text-[#F04438]" : "text-[#17B26A]"}>
