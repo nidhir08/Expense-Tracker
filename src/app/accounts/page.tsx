@@ -99,7 +99,7 @@ const Accounts = () => {
             <tbody>
               {recentTransactions.map((tx) => (
                 <tr key={tx.id} className="border-t border-gray-200 dark:text-white">
-                  <td className="p-3 font-medium text-gray-800">{tx.description}</td>
+                  <td className="p-3 font-medium">{tx.description}</td>
                   <td className="p-3">{tx.method}</td>
                   <td className="p-3">{tx.date}</td>
                   <td className={`p-3 font-semibold ${tx.amount < 0 ? 'text-red-500' : 'text-green-600'}`}>₹{tx.amount}</td>
@@ -111,10 +111,10 @@ const Accounts = () => {
         </div>
 
         {/* Actions */}
-        <div className="mt-8 flex gap-4">
-          <Button>Add Money</Button>
-          <Button variant="outline">Transfer</Button>
-          <Button variant="outline">Manage Accounts</Button>
+        <div className="mt-8 flex gap-4 ">
+          <Button className='dark:text-black dark:bg-white'>Add Money</Button>
+          <Button variant="outline" className='dark:text-black dark:bg-white'>Transfer</Button>
+          <Button variant="outline" className='dark:text-black dark:bg-white'>Manage Accounts</Button>
         </div>
       </div>
     </>
