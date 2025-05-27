@@ -1,36 +1,26 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💸 Expense Tracker
+A money management application built with Next.js, React.js, Tailwind CSS, and Supabase. This app helps you track your expenses and savings in one place, giving you full visibility over your financial activity with a sleek, responsive UI.
 
-## Getting Started
+## 🔍 Description
+Expense Tracker is a smart financial tool that allows users to:
 
-First, run the development server:
+Track daily, weekly, or monthly expenses
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Monitor income and savings
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visualize spending habits
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Store and retrieve data securely with Supabase
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Whether you're budgeting for the month or just keeping an eye on your spending, this app helps you stay organized and in control.
 
-## Learn More
+## 🛠️ Tech Stack
+Next.js – Full-stack React framework for SSR and routing
 
-To learn more about Next.js, take a look at the following resources:
+React.js – Core UI library
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Tailwind CSS – Utility-first CSS framework for styling
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Supabase – Backend as a service for database and auth
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Website is live https://expense-tracker-azure-kappa.vercel.app/
