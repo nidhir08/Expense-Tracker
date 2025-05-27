@@ -9,8 +9,8 @@ const TimeRange = () => {
   return (
 
     <div className='flex flex-row lg:gap-150 md:gap-100 sm:gap-40 whitespace-nowrap flex-shrink-0'>
-         {!session && <h1 className='font-bold text-2xl text-black mt-4 sm:w-auto"'>Hello!</h1>}
-         {session && <h1 className='font-bold text-2xl text-black mt-4 sm:w-auto"'>Hello, {session.user?.name}!</h1>}
+         {!session && <h1 className='font-bold text-2xl text-black mt-4 sm:w-auto dark:text-white'>Hello!</h1>}
+         {session && <h1 className='font-bold text-2xl text-black mt-4 sm:w-auto dark:text-white'>Hello, {session.user?.name}!</h1>}
           <div className="border rounded-md inline-flex items-center bg-white shadow-sm">
             {timeRanges.map((label, index) => (
               <React.Fragment key={label}>

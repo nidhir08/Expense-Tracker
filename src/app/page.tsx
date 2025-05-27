@@ -24,6 +24,7 @@ import {
   Legend
 } from 'chart.js'
 import { randomInt } from "crypto";
+import ProgressBar from "./components/Progress";
 
 // Register chart elements
 ChartJS.register(ArcElement, Tooltip, Legend)
@@ -460,36 +461,9 @@ setChartColors(colors.slice(0, labels.length))
     </div>
 
   {/* slider components */}
-<div className="flex flex-row gap-15 ml-10">
-<div className="bg-[#FFFFFF] w-[259px] h-[88px] border-[#ECEFF2] border-1 rounded-xl p-4 cursor-pointer">
-      <div className="flex flex-row gap-4">
-      <div className="flex flex-col flex-1  ">
-      <span className="text-black font-semibold">House</span>
-      <span className="text-[#516778] font-thin whitespace-nowrap ">300000</span>
-      <Slider defaultValue={[33]} max={100} step={1} className="w-full h-4"   />
-      </div>
-      </div>
-    </div>
+<div className="flex flex-row gap-15 w-[1000px] ml-10">
+<ProgressBar small/>
 
-    <div className="bg-[#FFFFFF] w-[259px] h-[88px] border-[#ECEFF2] border-1 rounded-xl p-4 cursor-pointer">
-      <div className="flex flex-row gap-4">
-      <div className="flex flex-col flex-1  ">
-      <span className="text-black font-semibold">Car</span>
-      <span className="text-[#516778] font-thin whitespace-nowrap ">300000</span>
-      <Slider defaultValue={[33]} max={100} step={1} className="w-full h-4"   />
-      </div>
-      </div>
-    </div>
-
-    <div className="bg-[#FFFFFF] w-[259px] h-[88px] border-[#ECEFF2] border-1 rounded-xl p-4 cursor-pointer">
-      <div className="flex flex-row gap-4">
-      <div className="flex flex-col flex-1  ">
-      <span className="text-black font-semibold">Electronic</span>
-      <span className="text-[#516778] font-thin whitespace-nowrap ">300000</span>
-      <Slider defaultValue={[33]} max={100} step={1} className="w-full h-4"   />
-      </div>
-      </div>
-    </div>
 </div>
     </div>
 
@@ -497,13 +471,13 @@ setChartColors(colors.slice(0, labels.length))
    </div>
    <div className="flex flex-col m-5">
 <div className="flex flex-row">
-<div className="flex flex-row gap-20">
-    <div className="w-[490px] h-[395px] bg-[#FFFFFF] border-1 rounded-xl">
+<div className="flex flex-row gap-30">
+    <div className="w-[430px] h-[395px] bg-[#FFFFFF] border-1 rounded-xl">
       <div className="flex flex-col p-2">
         <span className="text-[#516778] font-medium text-md pb-2">Expenses By Category</span>
-        <div className="w-60 h-60">
+        <div className="w-60 h-60 ml-6 mt-3">
         {chartData && (
-  <div className="flex flex-col items-center">
+  <div className="flex flex-col items-center ">
     <Doughnut data={chartData} options={options} />
 
     {/* Custom legend below chart */}
@@ -521,7 +495,7 @@ setChartColors(colors.slice(0, labels.length))
     </div>
       </div>
     </div>
-    <Table className="bg-white  rounded-lg">
+    <Table className="bg-white w-[900px] rounded-lg">
   <TableCaption>A list of your recent transactions.</TableCaption>
   <TableHeader >
     <TableRow >
@@ -530,12 +504,12 @@ setChartColors(colors.slice(0, labels.length))
     </TableHeader>
   <TableHeader>
     <TableRow>
-      <TableHead className="text-left">Name</TableHead>
-      <TableHead>Description</TableHead>
-      <TableHead>Payment Method</TableHead>
-      <TableHead>Date</TableHead>
-      <TableHead >Amount</TableHead>
-      <TableHead className="text-right"></TableHead>
+      <TableHead className="text-left dark:text-black font-bold">Name</TableHead>
+      <TableHead className="dark:text-black font-bold">Description</TableHead>
+      <TableHead className="dark:text-black font-bold">Payment Method</TableHead>
+      <TableHead className="dark:text-black font-bold">Date</TableHead>
+      <TableHead className="dark:text-black font-bold">Amount</TableHead>
+      <TableHead className="text-right dark:text-black font-bold"></TableHead>
     </TableRow>
     </TableHeader>
   <TableBody>

@@ -53,7 +53,7 @@ const Transactions = () => {
   return (
     < >
    <Header/>
-   <div className="p-4 w-full ">
+   <div className="pl-4 w-full min-h-screen dark:bg-black ">
    <div className='flex flex-row mt-4'>
    <TimeRange/>
    </div>
@@ -71,12 +71,12 @@ const Transactions = () => {
     </TableHeader>
   <TableHeader>
     <TableRow>
-      <TableHead className="text-left">Name</TableHead>
-      <TableHead>Description</TableHead>
-      <TableHead>Payment Method</TableHead>
-      <TableHead>Date</TableHead>
-      <TableHead >Amount</TableHead>
-      <TableHead className="text-right"></TableHead>
+      <TableHead className="text-left dark:text-black font-bold">Name</TableHead>
+      <TableHead className="dark:text-black font-bold">Description</TableHead>
+      <TableHead className="dark:text-black font-bold">Payment Method</TableHead>
+      <TableHead className="dark:text-black font-bold">Date</TableHead>
+      <TableHead className="dark:text-black font-bold">Amount</TableHead>
+      <TableHead className="text-right dark:text-black font-bold"></TableHead>
     </TableRow>
     </TableHeader>
   <TableBody>

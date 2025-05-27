@@ -32,26 +32,26 @@ const Accounts = () => {
   return (
     <>
       <Header />
-      <div className="p-4">
+      <div className="p-4 ">
         <div className="flex flex-row mt-4">
           <TimeRange />
         </div>
 
         {/* Account Summary */}
-        <h1 className="text-xl font-bold text-black my-4">Account Summary</h1>
+        <h1 className="text-xl font-bold text-black dark:text-white my-4">Account Summary</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           {balanceData.map((acc) => (
             <Card key={acc.name} className="rounded-xl shadow-md">
               <CardContent className="p-4">
                 <p className="text-sm text-gray-600">{acc.name}</p>
-                <h2 className="text-lg font-bold text-black">₹{acc.balance.toLocaleString()}</h2>
+                <h2 className="text-lg font-bold text-black dark:text-white">₹{acc.balance.toLocaleString()}</h2>
               </CardContent>
             </Card>
           ))}
         </div>
 
         {/* Balance Chart */}
-        <h1 className="text-xl font-bold text-black my-6">Balance Overview</h1>
+        <h1 className="text-xl font-bold text-black dark:text-white my-6">Balance Overview</h1>
         <ResponsiveContainer width="100%" height={250}>
           <BarChart data={balanceData}>
             <XAxis dataKey="name" />
@@ -62,7 +62,7 @@ const Accounts = () => {
         </ResponsiveContainer>
 
         {/* Income vs Expenses Pie */}
-        <h1 className="text-xl font-bold text-black my-6">Income vs Expenses</h1>
+        <h1 className="text-xl font-bold text-black dark:text-white my-6">Income vs Expenses</h1>
         <ResponsiveContainer width="100%" height={300}>
           <PieChart>
             <Pie
@@ -84,7 +84,7 @@ const Accounts = () => {
         </ResponsiveContainer>
 
         {/* Recent Transactions */}
-        <h1 className="text-xl font-bold text-black my-6">Recent Transactions</h1>
+        <h1 className="text-xl font-bold text-black dark:text-white my-6">Recent Transactions</h1>
         <div className="overflow-auto rounded-lg border border-gray-200">
           <table className="w-full text-left">
             <thead className="bg-gray-100">
@@ -98,7 +98,7 @@ const Accounts = () => {
             </thead>
             <tbody>
               {recentTransactions.map((tx) => (
-                <tr key={tx.id} className="border-t border-gray-200">
+                <tr key={tx.id} className="border-t border-gray-200 dark:text-white">
                   <td className="p-3 font-medium text-gray-800">{tx.description}</td>
                   <td className="p-3">{tx.method}</td>
                   <td className="p-3">{tx.date}</td>

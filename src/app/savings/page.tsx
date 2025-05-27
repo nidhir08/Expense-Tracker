@@ -196,7 +196,7 @@ const colors = ['#E0533D', '#E78C9D', '#377CC8', '#EED868', '#17B26A', '#9E77ED'
   return (
     <>
         <Header/>
-        <div className="p-4">
+        <div className="pl-4 w-full min-h-screen">
    <div className='flex flex-row mt-4 '>
    <TimeRange/>
    </div>

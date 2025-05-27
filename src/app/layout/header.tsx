@@ -1,16 +1,19 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Settings, Bell } from 'lucide-react'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu'
+import { Switch } from '@/components/ui/switch'
+
 
 const Header = () => {
   const pathname = usePathname()
   const { data: session } = useSession()
+  const [isDarkMode, setIsDarkMode] = useState(false); // Dark mode state
 
   const menuItems = [
     { name: 'Dashboard', href: '/' },
@@ -20,9 +23,24 @@ const Header = () => {
     { name: 'Accounts', href: '/accounts' },
   ]
 
+    // Load theme on mount
+  useEffect(() => {
+    const storedTheme = localStorage.getItem('theme')
+    const prefersDark = storedTheme === 'dark'
+    document.documentElement.classList.toggle('dark', prefersDark)
+    setIsDarkMode(prefersDark)
+  }, [])
+
+  const handleThemeToggle = () => {
+    const newMode = !isDarkMode
+    setIsDarkMode(newMode)
+    localStorage.setItem('theme', newMode ? 'dark' : 'light')
+    document.documentElement.classList.toggle('dark', newMode)
+  }
+
   return (
     <>
-    <div className='w-full min-w-screen bg-white text-black items-center px-6 py-4 border-b border-gray-300 flex-shrink-0'>
+    <div className='w-full min-w-screen bg-white dark:bg-black text-black items-center px-6 py-4 border-b border-gray-300 flex-shrink-0'>
       <div className="flex items-center justify-between ">
       {/* Logo */}
       <div className="relative w-60 h-14 sm:w-48 sm:h-14 md:w-60 md:h-14 flex-shrink-0">
@@ -53,8 +71,9 @@ const Header = () => {
 
       {/* Right Side: Icons + Auth */}
       <div className='flex flex-row gap-4 items-center'>
-        <Settings />
-        <Bell />
+           <Switch checked={isDarkMode} onCheckedChange={handleThemeToggle} />
+        <Settings className='dark:text-white' />
+        <Bell className='dark:text-white' />
 
         {session ? (
           <>

@@ -449,24 +449,25 @@ const Analytics = () => {
    <TableCaption>A list of your recent transactions.</TableCaption>
    <TableHeader >
      <TableRow >
-     <h1 className="mx-4 my-2 font-bold text-black text-lg">Last Transactions</h1>
-     <p className="mx-4 my-4 font-light text-[#516778]">Check your last transactions</p>
+     <th className="mx-4 my-2 font-bold text-black text-lg">Last Transactions</th>
      </TableRow>
      </TableHeader>
    <TableHeader >
      <TableRow>
-       <TableHead className="text-left font-bold">Description</TableHead>
-       <TableHead className="font-bold ">Payment Method</TableHead>
-       <TableHead className="font-bold">Date</TableHead>
-       <TableHead className="font-bold">Amount</TableHead>
-       <TableHead className="text-right"></TableHead>
+            <TableHead className="text-left dark:text-black font-bold">Name</TableHead>
+            <TableHead className="dark:text-black font-bold">Description</TableHead>
+            <TableHead className="dark:text-black font-bold">Payment Method</TableHead>
+            <TableHead className="dark:text-black font-bold">Date</TableHead>
+            <TableHead className="dark:text-black font-bold">Amount</TableHead>
+            <TableHead className="text-right dark:text-black font-bold"></TableHead>
      </TableRow>
      </TableHeader>
    <TableBody>
      {transactions.length > 0 ? (
        transactions.map((transaction) => (
          <TableRow key={transaction.id}>
-           <TableCell className="font-medium">{transaction.description}</TableCell>
+           <TableCell className="font-medium">{transaction.name}</TableCell>
+           <TableCell>{transaction.description}</TableCell>
            <TableCell>{transaction.payment_method }</TableCell>
            <TableCell>{transaction.transaction_at}</TableCell>
            <TableCell className={transaction.amount_spent < 0 ? "text-[#F04438]" : "text-[#17B26A]"}>
